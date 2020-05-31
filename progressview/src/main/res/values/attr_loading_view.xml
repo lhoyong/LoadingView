@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="LoadingView">
+        <attr name="loading_color" format="color|reference" />
+        <attr name="loading_background_color" format="color|reference" />
+        <attr name="loading_duration" format="integer|reference" />
+        <attr name="loading_indicator_width" format="float" />
+        <attr name="loading_radius" format="integer" />
+    </declare-styleable>
+</resources>
