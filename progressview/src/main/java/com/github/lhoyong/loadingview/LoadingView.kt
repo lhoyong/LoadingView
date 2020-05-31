@@ -5,6 +5,7 @@ import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
+import android.graphics.Path
 import android.util.AttributeSet
 import android.view.View
 import android.view.animation.Animation
@@ -29,12 +30,14 @@ class LoadingView @JvmOverloads constructor(
 
     private var progressWidth: Float = 100F
 
-    private var radius: Float = RADIUS.dp
+    private var radiusX: Float = RADIUS.dp
+    private var radiusY: Float = RADIUS.dp
 
-    private val backgroundPaint = Paint()
-    private val progressPaint = Paint()
+    private val backgroundPaint: Paint = Paint()
+    private val progressPaint: Paint = Paint()
+    private val progressPath: Path = Path()
 
-    private var loadingAnimation = LoadingAnimation.NONE
+    private var loadingAnimation: LoadingAnimation = LoadingAnimation.NONE
 
     init {
         val attr = context.obtainStyledAttributes(attrs, R.styleable.LoadingView, 0, 0)
@@ -48,7 +51,8 @@ class LoadingView @JvmOverloads constructor(
             attr.getInt(R.styleable.LoadingView_loading_duration, duration.toInt()).toLong()
         this.progressWidth =
             attr.getDimension(R.styleable.LoadingView_loading_indicator_width, progressWidth)
-        this.radius = attr.getDimension(R.styleable.LoadingView_loading_radius, radius)
+        this.radiusX = attr.getDimension(R.styleable.LoadingView_loading_radius, radiusX)
+        this.radiusY = attr.getDimension(R.styleable.LoadingView_loading_radius, radiusY)
 
         this.loadingAnimation =
             when (attr.getInt(R.styleable.LoadingView_loading_animation, loadingAnimation.type)) {
@@ -60,26 +64,50 @@ class LoadingView @JvmOverloads constructor(
             }
 
         attr.recycle()
-
-        autoAnimated()
     }
 
     override fun onDraw(canvas: Canvas?) {
-        drawBackground(canvas)
-        drawProgress(canvas)
+        canvas?.drawRect(0F, 0F, width.toFloat(), height.toFloat(), backgroundPaint)
+        progressPath.apply {
+            reset()
+            addRoundRect(
+                progressPreviousX, 0F, progressX, height.toFloat(),
+                floatArrayOf(
+                    radiusX,
+                    radiusX,
+                    radiusY,
+                    radiusY,
+                    radiusY,
+                    radiusY,
+                    radiusX,
+                    radiusX
+                ),
+                Path.Direction.CCW
+            )
+        }
+        canvas?.drawPath(progressPath, progressPaint)
         super.onDraw(canvas)
     }
 
-    private fun drawBackground(canvas: Canvas?) {
-        backgroundPaint.color = progressBackgroundColor
-        canvas?.drawRect(0F, 0F, width.toFloat(), height.toFloat(), backgroundPaint)
+    override fun onFinishInflate() {
+        super.onFinishInflate()
+        updateView()
     }
 
-    private fun drawProgress(canvas: Canvas?) {
+    private fun updateView() {
+        drawBackground()
+        drawProgress()
+        post {
+            autoAnimated()
+        }
+    }
+
+    private fun drawBackground() {
+        backgroundPaint.color = progressBackgroundColor
+    }
+
+    private fun drawProgress() {
         progressPaint.color = progressColor
-        canvas?.drawRoundRect(
-            progressPreviousX, 0f, progressX, height.toFloat(), radius, radius, progressPaint
-        )
     }
 
     private fun autoAnimated() {
@@ -93,10 +121,14 @@ class LoadingView @JvmOverloads constructor(
                     progressPreviousX = width * progress
                     progressX =
                         if (((width.toFloat() * progress) + progressWidth) >= width.toFloat()) width.toFloat() else (width.toFloat() * progress) + progressWidth
+                    if (progressX >= width.toFloat()) {
+                        radiusY = 0F
+                    }
                     invalidate()
                 }
-                start()
+                doRepeat { radiusY = radiusX }
             }
+            .also { it.start() }
     }
 
     companion object {

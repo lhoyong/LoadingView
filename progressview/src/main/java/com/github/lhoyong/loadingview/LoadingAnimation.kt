@@ -6,7 +6,7 @@ import android.view.animation.BounceInterpolator
 import android.view.animation.DecelerateInterpolator
 import android.view.animation.Interpolator
 
-enum class LoadingAnimation(val type: Int) {
+internal enum class LoadingAnimation(val type: Int) {
     NONE(0),
     BOUNCE(1),
     DECELERATE(2),
