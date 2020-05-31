@@ -4,7 +4,14 @@
         <attr name="loading_color" format="color|reference" />
         <attr name="loading_background_color" format="color|reference" />
         <attr name="loading_duration" format="integer|reference" />
-        <attr name="loading_indicator_width" format="float" />
-        <attr name="loading_radius" format="integer" />
+        <attr name="loading_indicator_width" format="dimension|reference" />
+        <attr name="loading_radius" format="dimension|reference" />
+        <attr name="loading_animation" format="enum">
+            <enum name="none" value="0" />
+            <enum name="bounce" value="1" />
+            <enum name="decelerate" value="2" />
+            <enum name="accelerate" value="3" />
+            <enum name="accelerateDecelerate" value="4" />
+        </attr>
     </declare-styleable>
 </resources>

@@ -31,6 +31,11 @@ class LoadingView @JvmOverloads constructor(
 
     private var radius: Float = RADIUS.dp
 
+    private val backgroundPaint = Paint()
+    private val progressPaint = Paint()
+
+    private var loadingAnimation = LoadingAnimation.NONE
+
     init {
         val attr = context.obtainStyledAttributes(attrs, R.styleable.LoadingView, 0, 0)
 
@@ -42,8 +47,17 @@ class LoadingView @JvmOverloads constructor(
         this.duration =
             attr.getInt(R.styleable.LoadingView_loading_duration, duration.toInt()).toLong()
         this.progressWidth =
-            attr.getFloat(R.styleable.LoadingView_loading_indicator_width, progressWidth)
-        this.radius = attr.getInt(R.styleable.LoadingView_loading_radius, RADIUS).toFloat()
+            attr.getDimension(R.styleable.LoadingView_loading_indicator_width, progressWidth)
+        this.radius = attr.getDimension(R.styleable.LoadingView_loading_radius, radius)
+
+        this.loadingAnimation =
+            when (attr.getInt(R.styleable.LoadingView_loading_animation, loadingAnimation.type)) {
+                1 -> LoadingAnimation.BOUNCE
+                2 -> LoadingAnimation.DECELERATE
+                3 -> LoadingAnimation.ACCELERATE
+                4 -> LoadingAnimation.ACCELERATEDECELERATE
+                else -> LoadingAnimation.NONE
+            }
 
         attr.recycle()
 
@@ -57,16 +71,14 @@ class LoadingView @JvmOverloads constructor(
     }
 
     private fun drawBackground(canvas: Canvas?) {
-        val paint = Paint()
-        paint.color = progressBackgroundColor
-        canvas?.drawRect(0F, 0F, width.toFloat(), height.toFloat(), paint)
+        backgroundPaint.color = progressBackgroundColor
+        canvas?.drawRect(0F, 0F, width.toFloat(), height.toFloat(), backgroundPaint)
     }
 
     private fun drawProgress(canvas: Canvas?) {
-        val paint = Paint()
-        paint.color = progressColor
+        progressPaint.color = progressColor
         canvas?.drawRoundRect(
-            progressPreviousX, 0f, progressX, height.toFloat(), radius, radius, paint
+            progressPreviousX, 0f, progressX, height.toFloat(), radius, radius, progressPaint
         )
     }
 
@@ -74,6 +86,7 @@ class LoadingView @JvmOverloads constructor(
         ValueAnimator.ofFloat(0f, 1f)
             .apply {
                 duration = this@LoadingView.duration
+                interpolator = loadingAnimation.getInterpolator()
                 repeatCount = Animation.INFINITE
                 addUpdateListener {
                     val progress = it.animatedValue as Float

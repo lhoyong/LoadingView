@@ -5,15 +5,94 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:gravity="center"
+        android:text="None" />
+
     <com.github.lhoyong.loadingview.LoadingView
-        android:id="@+id/view"
         android:layout_width="match_parent"
         android:layout_height="10dp"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="10dp"
+        app:loading_animation="none"
         app:loading_background_color="#eaeaea"
         app:loading_color="#a9a9a9"
-        app:loading_duration="5000"
-        app:loading_indicator_width="150"
-        app:loading_radius="10" />
+        app:loading_duration="1000"
+        app:loading_indicator_width="150dp"
+        app:loading_radius="10dp" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:gravity="center"
+        android:text="Accelerate" />
+
+    <com.github.lhoyong.loadingview.LoadingView
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:layout_marginTop="10dp"
+        app:loading_animation="accelerate"
+        app:loading_background_color="#eaeaea"
+        app:loading_color="#a9a9a9"
+        app:loading_duration="1000"
+        app:loading_indicator_width="150dp"
+        app:loading_radius="10dp" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:gravity="center"
+        android:text="Decelerate" />
+
+    <com.github.lhoyong.loadingview.LoadingView
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:layout_marginTop="10dp"
+        app:loading_animation="decelerate"
+        app:loading_background_color="#eaeaea"
+        app:loading_color="#a9a9a9"
+        app:loading_duration="1000"
+        app:loading_indicator_width="150dp"
+        app:loading_radius="10dp" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:gravity="center"
+        android:text="Bounce" />
+
+    <com.github.lhoyong.loadingview.LoadingView
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:layout_marginTop="10dp"
+        app:loading_animation="bounce"
+        app:loading_background_color="#eaeaea"
+        app:loading_color="#a9a9a9"
+        app:loading_duration="1000"
+        app:loading_indicator_width="150dp"
+        app:loading_radius="10dp" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:gravity="center"
+        android:text="AccelerateDecelerate" />
+
+    <com.github.lhoyong.loadingview.LoadingView
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:layout_marginTop="10dp"
+        app:loading_animation="accelerateDecelerate"
+        app:loading_background_color="#eaeaea"
+        app:loading_color="#a9a9a9"
+        app:loading_duration="1000"
+        app:loading_indicator_width="150dp"
+        app:loading_radius="10dp" />
 
 </LinearLayout>
