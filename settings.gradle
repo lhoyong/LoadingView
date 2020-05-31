@@ -1,3 +1,2 @@
-include ':progressview'
-include ':app'
-rootProject.name = "ProgressView"
+include ':loadingview',
+        ':app'
