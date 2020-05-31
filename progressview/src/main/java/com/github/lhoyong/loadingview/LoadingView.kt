@@ -31,7 +31,6 @@ class LoadingView @JvmOverloads constructor(
 
     private var radius: Float = RADIUS.dp
 
-
     init {
         val attr = context.obtainStyledAttributes(attrs, R.styleable.LoadingView, 0, 0)
 
@@ -86,7 +85,6 @@ class LoadingView @JvmOverloads constructor(
                 start()
             }
     }
-
 
     companion object {
         private const val ANIM_DURATION = 3000L
