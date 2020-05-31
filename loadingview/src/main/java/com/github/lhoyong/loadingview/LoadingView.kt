@@ -11,33 +11,78 @@ import android.view.View
 import android.view.animation.Animation
 import androidx.annotation.ColorInt
 
+/** Horizontal ProgressBar with endless Animation **/
 class LoadingView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0
 ) : View(context, attrs, defStyleAttr) {
 
+    /** progressBar Color */
     @ColorInt
     var progressColor: Int = Color.BLACK
+        set(value) {
+            field = value
+            updateView()
+        }
 
+    /** backgroundColor */
     @ColorInt
     var progressBackgroundColor: Int = Color.TRANSPARENT
+        set(value) {
+            field = value
+            updateView()
+        }
 
-    private var duration: Long = ANIM_DURATION
+    /**
+     * progress duration
+     * default is [LoadingView.ANIM_DURATION]
+     */
+    var duration: Long = ANIM_DURATION
+        set(value) {
+            field = value
+            updateView()
+        }
 
+    /** progressIndicator start X position */
     private var progressPreviousX: Float = 0F
+
+    /** progressIndicator end X position */
     private var progressX: Float = 0F
 
-    private var progressWidth: Float = 100F
+    /**
+     * progressIndicator width
+     * */
+    var indicatorWidth: Float = 100F
+        set(value) {
+            field = value
+            updateView()
+        }
 
+    /** indicator left side radius */
     private var radiusX: Float = RADIUS.dp
+
+    /** indicator right side radius */
     private var radiusY: Float = RADIUS.dp
 
+    /** [LoadingView] background color */
     private val backgroundPaint: Paint = Paint()
+
+    /** [LoadingView] indicator paint */
     private val progressPaint: Paint = Paint()
+
+    /** [LoadingView] indicator path */
     private val progressPath: Path = Path()
 
-    private var loadingAnimation: LoadingAnimation = LoadingAnimation.NONE
+    /**
+     * progress animation [LoadingAnimation].
+     * default animations is [LoadingAnimation.NONE]
+     */
+    var loadingAnimation: LoadingAnimation = LoadingAnimation.NONE
+        set(value) {
+            field = value
+            updateView()
+        }
 
     init {
         val attr = context.obtainStyledAttributes(attrs, R.styleable.LoadingView, 0, 0)
@@ -49,8 +94,8 @@ class LoadingView @JvmOverloads constructor(
         )
         this.duration =
             attr.getInt(R.styleable.LoadingView_loading_duration, duration.toInt()).toLong()
-        this.progressWidth =
-            attr.getDimension(R.styleable.LoadingView_loading_indicator_width, progressWidth)
+        this.indicatorWidth =
+            attr.getDimension(R.styleable.LoadingView_loading_indicator_width, indicatorWidth)
         this.radiusX = attr.getDimension(R.styleable.LoadingView_loading_radius, radiusX)
         this.radiusY = attr.getDimension(R.styleable.LoadingView_loading_radius, radiusY)
 
@@ -120,7 +165,7 @@ class LoadingView @JvmOverloads constructor(
                     val progress = it.animatedValue as Float
                     progressPreviousX = width * progress
                     progressX =
-                        if (((width.toFloat() * progress) + progressWidth) >= width.toFloat()) width.toFloat() else (width.toFloat() * progress) + progressWidth
+                        if (((width.toFloat() * progress) + indicatorWidth) >= width.toFloat()) width.toFloat() else (width.toFloat() * progress) + indicatorWidth
                     if (progressX >= width.toFloat()) {
                         radiusY = 0F
                     }
