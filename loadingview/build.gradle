@@ -2,6 +2,7 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'org.jetbrains.dokka'
 apply from: rootProject.file('ktlint.gradle')
+apply from: rootProject.file('bintray.gradle')
 apply from: rootProject.file('dependencies.gradle')
 
 android {
