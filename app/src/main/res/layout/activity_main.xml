@@ -18,7 +18,7 @@
         android:layout_marginTop="10dp"
         app:loading_animation="none"
         app:loading_background_color="#eaeaea"
-        app:loading_color="#a9a9a9"
+        app:loading_color="#4287f5"
         app:loading_duration="1000"
         app:loading_indicator_width="150dp"
         app:loading_radius="10dp" />
@@ -36,7 +36,7 @@
         android:layout_marginTop="10dp"
         app:loading_animation="accelerate"
         app:loading_background_color="#eaeaea"
-        app:loading_color="#a9a9a9"
+        app:loading_color="#e838c5"
         app:loading_duration="1000"
         app:loading_indicator_width="150dp"
         app:loading_radius="10dp" />
@@ -54,7 +54,7 @@
         android:layout_marginTop="10dp"
         app:loading_animation="decelerate"
         app:loading_background_color="#eaeaea"
-        app:loading_color="#a9a9a9"
+        app:loading_color="#a66923"
         app:loading_duration="1000"
         app:loading_indicator_width="150dp"
         app:loading_radius="10dp" />
@@ -72,7 +72,7 @@
         android:layout_marginTop="10dp"
         app:loading_animation="bounce"
         app:loading_background_color="#eaeaea"
-        app:loading_color="#a9a9a9"
+        app:loading_color="#cc1247"
         app:loading_duration="1000"
         app:loading_indicator_width="150dp"
         app:loading_radius="10dp" />
@@ -90,7 +90,7 @@
         android:layout_marginTop="10dp"
         app:loading_animation="accelerateDecelerate"
         app:loading_background_color="#eaeaea"
-        app:loading_color="#a9a9a9"
+        app:loading_color="#3fe80c"
         app:loading_duration="1000"
         app:loading_indicator_width="150dp"
         app:loading_radius="10dp" />
